@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>常春藤單字音檔</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: 首頁分 Level 4（藍綠）與 Level 5（磚紅）兩組單元格；單元頁沿用該級顏色 */
+:root{
+  --bg:#f4f6f5; --surface:#ffffff; --fg:#171f1f; --muted:#667272; --line:#dde4e3;
+  --teal:#0e7470; --teal-soft:#e0f1ef; --brick:#a8432c; --brick-soft:#f7e6e1;
+  --accent:var(--teal); --accent-soft:var(--teal-soft); --on-accent:#ffffff;
+  --display:"Sora","Noto Sans TC",system-ui,sans-serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111615; --surface:#1a2120; --fg:#e6eceb; --muted:#93a19f; --line:#2a3331;
+  --teal:#5cc6be; --teal-soft:#16302d; --brick:#e48a72; --brick-soft:#3a201a;
+  --on-accent:#0d1716; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111615; --surface:#1a2120; --fg:#e6eceb; --muted:#93a19f; --line:#2a3331;
+  --teal:#5cc6be; --teal-soft:#16302d; --brick:#e48a72; --brick-soft:#3a201a;
+  --on-accent:#0d1716; color-scheme:dark}
+body[data-level="4"]{--accent:var(--teal);--accent-soft:var(--teal-soft)}
+body[data-level="5"]{--accent:var(--brick);--accent-soft:var(--brick-soft)}
+:root{padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+.wrap{max-width:720px;margin:0 auto}
+
+/* 首頁 */
+header.home{padding-block:28px 6px}
+header.home h1{font:700 26px/1.2 var(--display);margin:0;letter-spacing:-.01em}
+header.home p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.level{margin-top:22px}
+.level h2{font:700 15px/1 var(--display);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.level h2::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--c)}
+.level.l4{--c:var(--teal);--cs:var(--teal-soft)}
+.level.l5{--c:var(--brick);--cs:var(--brick-soft)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(4,1fr)}}
+.unit{background:var(--cs);color:var(--c);border:1px solid transparent;border-radius:14px;
+  padding:20px 4px;display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s,transform .15s}
+.unit:hover{border-color:var(--c)}
+.unit:active{transform:scale(.97)}
+.unit .n{font:600 17px/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.unit.last{border-color:var(--c);border-width:2px}
+
+/* 單元頁 */
+.topbar{display:flex;align-items:center;gap:12px;padding-block:18px 14px}
+.back{display:flex;align-items:center;gap:4px;color:var(--muted);font-size:14px;padding:6px 8px 6px 0}
+.topbar h2{font:700 20px/1 var(--display);margin:0 0 0 auto;color:var(--accent)}
+.now{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;min-height:170px}
+.now .label{font:600 11px/1 var(--display);letter-spacing:.08em;color:var(--muted)}
+.now .range{font:700 30px/1.15 var(--display);margin-top:6px;font-variant-numeric:tabular-nums}
+.entries{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+.entry .w{font:700 19px/1.3 var(--display)}
+.entry .s{opacity:.85}
+.entry + .entry{border-top:1px solid var(--line);padding-top:12px}
+.empty{margin-top:14px;color:var(--muted);font-size:13px}
+.edit-btn{margin-top:14px;font-size:13px;color:var(--accent);padding:4px 0}
+.editor{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.editor textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:10px;padding:10px;
+  font:14px/1.5 var(--body);background:var(--bg);color:var(--fg);resize:vertical}
+.editor .hint{font-size:12px;color:var(--muted)}
+.editor .row{display:flex;gap:8px;justify-content:flex-end}
+.pill{padding:7px 14px;border-radius:999px;font-size:13px;border:1px solid var(--line)}
+.pill.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+
+.tracks{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column}
+.tracks li button{width:100%;display:flex;align-items:center;gap:14px;padding:12px 4px;border-bottom:1px solid var(--line);text-align:left}
+.tracks .i{width:22px;font:600 13px/1 var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.tracks .t{font:600 15px/1.2 var(--display);font-variant-numeric:tabular-nums;flex:1}
+.tracks .has{font-size:11px;color:var(--muted)}
+.tracks li.on button, .tracks li.on .i{color:var(--accent)}
+
+/* 播放列 */
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.bar-in{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.prog{display:flex;align-items:center;gap:10px;font:12px/1 var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.prog input{flex:1;accent-color:var(--accent);min-width:0}
+.ctrls{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrls .mid{display:flex;align-items:center;gap:18px}
+.ic{width:40px;height:40px;display:grid;place-items:center;border-radius:50%}
+.ic svg{width:22px;height:22px;fill:currentColor}
+.play{width:52px;height:52px;background:var(--accent);color:var(--on-accent)}
+.play svg{width:24px;height:24px}
+.small{font:600 12px/1 var(--display);padding:8px 10px;border-radius:999px;border:1px solid var(--line);min-width:52px}
+.small.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.err{font-size:12px;color:var(--brick);text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-level="4">
+
+<div class="wrap">
+  <section id="home">
+    <header class="home">
+      <h1>常春藤單字音檔</h1>
+      <p>選一個單元，整組連續播放</p>
+    </header>
+    <div id="levels"></div>
+  </section>
+
+  <section id="unit" hidden>
+    <div class="topbar">
+      <button class="back" id="back" aria-label="回首頁">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12z"/></svg>單元
+      </button>
+      <h2 id="unitTitle">Unit 01</h2>
+    </div>
+
+    <div class="now">
+      <div class="label" id="nowLabel">第 1 段</div>
+      <div class="range" id="nowRange">01–03</div>
+      <div class="entries" id="entries"></div>
+      <div class="empty" id="empty">這一段還沒有單字和句子。</div>
+      <button class="edit-btn" id="editBtn">＋ 輸入這段的單字和句子</button>
+      <div class="editor" id="editor" hidden>
+        <textarea id="editText" placeholder="abandon | He abandoned the plan.&#10;ability | She has the ability to lead."></textarea>
+        <div class="hint">一行一個，單字和句子用「|」隔開。只存在這台裝置的瀏覽器裡。</div>
+        <div class="row">
+          <button class="pill" id="cancelEdit">取消</button>
+          <button class="pill primary" id="saveEdit">儲存</button>
+        </div>
+      </div>
+    </div>
+
+    <ul class="tracks" id="tracks"></ul>
+  </section>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <div class="bar-in">
+    <div class="prog">
+      <span id="cur">0:00</span>
+      <input type="range" id="seek" min="0" max="1000" value="0" aria-label="播放進度">
+      <span id="dur">0:00</span>
+    </div>
+    <div class="ctrls">
+      <button class="small" id="speed" aria-label="播放速度">1×</button>
+      <div class="mid">
+        <button class="ic" id="prev" aria-label="上一段"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+        <button class="ic play" id="play" aria-label="播放"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
+        <button class="ic" id="next" aria-label="下一段"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6z"/></svg></button>
+      </div>
+      <button class="small" id="loop" aria-label="整個單元重複播放">重複</button>
+    </div>
+    <div class="err" id="err" hidden></div>
+  </div>
+</div>
+
+<audio id="audio" preload="auto"></audio>
+
+<script>
+const LEVELS = {
+  "4": {
+    name: "Level 4",
+    base: "https://media.ivy.com.tw/CORElevel44ecc7e3a68b7a12d8a55df36ee1c49bb/allnew02/",
+    units: {
+      "01":["0101-0103","0104-0108","0109-0113","0113-0118","0118-0123"],
+      "02":["0201-0203","0204-0208","0208-0212","0213-0216","0217-0224","0224-0230"],
+      "03":["0301-0302","0303-0308","0309-0313","0314-0321","0321-0326","0327-0328"],
+      "04":["0401-0403","0403-0410","0410-0414","0414-0416","0417-0423","0424-0425"],
+      "05":["0501-0503","0503-0507","0508-0514","0514-0520","0520-0527","0528-0533"],
+      "06":["0601-0603","0603-0606","0607-0610","0610-0615","0615-0619","0620-0624","0625-0627"],
+      "07":["0701-0704","0704-0707","0707-0715","0715-0720","0720-0727","0727-0732new"],
+      "08":["0801-0803","0803-0808","0808-0815","0815-0820","0820-0825","0826-0833","0833-0835"],
+      "09":["0901-0902","0903-0907new","0907-0911","0912-0916","0916-0925","0926-0929"],
+      "10":["1001-1004","1005-1010","1010-1015","1015-1020","1021-1025","1026-1029"],
+      "11":["1101-1103","1104-1110new","1111-1116","1117-1122","1123-1128","1129-1130"],
+      "12":["1201-1203","1204-1208","1209-1216","1216-1222","1222-1226","1226-1231","1232-1238"],
+      "13":["1301-1303","1303-1307","1308-1313","1314-1317","1317-1321","1322-1328","1329-1332"],
+      "14":["1401-1403","1404-1411","1412-1416","1417-1424","1424-1430","1430-1438"],
+      "15":["1501-1504","1505-1510","1511-1517","1518-1523","1524-1529","1530-1535"],
+      "16":["1601-1603","1604-1610","1610-1617","1618-1623new","1623-1629","1629-1636"],
+      "17":["1701-1702","1702-1707","1708-1715","1716-1721","1721-1727","1728-1732"],
+      "18":["1801-1804","1805-1811","1812-1818","1819-1825","1825-1832","1833-1835"],
+      "19":["1901-1903","1904-1910","1911-1917","1918-1924","1924-1933"],
+      "20":["2001-2003","2004-2011","2012-2020","2021-2027","2028-2036","2036-2040"],
+      "21":["2101-2104","2105-2113","2113-2118","2119-2128","2128-2138","2139-2140"],
+      "22":["2201-2205","2205-2211","2211-2218","2219-2225","2226-2233","2234-2242"],
+      "23":["2301-2304","2304-2310","2311-2319","2319-2328","2329-2338","2339-2342"],
+      "24":["2401-2404","2405-2411","2412-2419","2419-2426","2426-2438","2439-2440"]
+    }
+  },
+  "5": {
+    name: "Level 5",
+    base: "https://media.ivy.com.tw/ADVANCEDlevel549cd22c8ecf6201487aa23c74786f0d6/allnew05/",
+    units: {
+      "01":["0101-0103","0104-0109","0110-0116","0117-0124","0124-0132"],
+      "02":["../0201-0207/0201-0207","0207-0212new","0212-0218","0219-0226","0227-0231"],
+      "03":["0301-0305","0306-0310","0310-0316","0317-0323","0324-0329"],
+      "04":["0401-0406","0407-0414","0415-0422","0422-0429","0430-0431"],
+      "05":["0501-0502","0503-0507","0507-0515","0516-0523","0524-0530","0531-0533"],
+      "06":["0601-0605","0605-0611","0612-0619new","0619-0626","0627-0635"],
+      "07":["0701-0709","0710-0716","0716-0723","0724-0735","0736-0737"],
+      "08":["0801-0804","0804-0811","0811-0818","0819-0826","0826-0833new","0833-0835"],
+      "09":["0901-0904","0904-0912","0912-0920","0921-0929","0930-0934new"],
+      "10":["1001-1003","1004-1011","1011-1019","1020-1025","1026-1034","1034-1036"],
+      "11":["1101-1103","1103-1109","1110-1118","1119-1126","1127-1135"],
+      "12":["1201-1207","1208-1216","1216-1224","1225-1232","1232-1237"],
+      "13":["1301-1304","1305-1311new","1312-1320","1321-1329","1329-1335"],
+      "14":["1401-1407","1407-1414","1415-1422","1422-1429","1430-1437"],
+      "15":["1501-1507","1508-1514","1515-1522","1522-1531","1532-1536"],
+      "16":["1601-1610","1610-1619","1619-1626","1627-1635","1635-1639"],
+      "17":["1701-1706","1706-1712","1713-1721","1722-1728","1729-1733"],
+      "18":["1801-1804","1805-1812","1813-1821","1822-1831","1832-1836"],
+      "19":["1901-1908","1908-1915","1915-1922","1922-1929","1930-1935new"],
+      "20":["2001-2008","2008-2015","2016-2024","2025-2035","2035-2039"],
+      "21":["2101-2105","2105-2114","2115-2125","2126-2135","2136-2143"],
+      "22":["2201-2210","2211-2219","2220-2230","2231-2238","2239-2241"],
+      "23":["2301-2304","2305-2314","2314-2323","2324-2334","2335-2339"],
+      "24":["2401-2411","2412-2423new","2424-2432","2432-2440","2441-2443"],
+      "25":["2501-2505","2506-2515","2516-2526","2527-2536new","2537-2539"]
+    }
+  }
+};
+
+/* 每段音檔對應的單字和句子。key 是「級數/檔名」，例如 "4/0101-0103"：[["單字","句子"], ...] */
+const TEXT = {};
+
+const $ = id => document.getElementById(id);
+const audio = $("audio");
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let userText = store.get("core-text", null);
+if(!userText){ /* 搬移舊版 Level 4 存的文字 */
+  userText = {};
+  const old = store.get("core4-text", {});
+  for(const k in old) userText["4/"+k] = old[k];
+  store.set("core-text", userText);
+}
+let lv = null, unit = null, idx = 0, loopOn = store.get("core4-loop", false);
+const speeds = [0.75, 1, 1.25, 1.5];
+let speedI = store.get("core4-speed", 1);
+
+const tracks = () => LEVELS[lv].units[unit];
+const key = f => lv + "/" + f;
+const rangeOf = f => { const m = f.split("/").pop().match(/^(\d\d)(\d\d)-(\d\d)(\d\d)/); return m ? `${m[2]}–${m[4]}` : f; };
+const entriesFor = f => userText[key(f)] || TEXT[key(f)] || [];
+const fmt = s => { if(!isFinite(s)) return "0:00"; s = Math.floor(s); return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* 首頁 */
+function renderHome(){
+  document.body.dataset.level = lv || "4";
+  const last = store.get("core-last", null);
+  $("levels").innerHTML = ["4","5"].map(l => {
+    const us = Object.keys(LEVELS[l].units).sort((a,b) => a - b);
+    return `<div class="level l${l}"><h2>${LEVELS[l].name}</h2><div class="grid">` +
+      us.map(u => `<button class="unit${last===l+"-"+u?" last":""}" data-l="${l}" data-u="${u}"><span class="n">Unit ${u}</span></button>`).join("") +
+      `</div></div>`;
+  }).join("");
+}
+$("levels").addEventListener("click", e => {
+  const b = e.target.closest(".unit"); if(!b) return;
+  openUnit(b.dataset.l, b.dataset.u, true);
+});
+
+/* 單元頁 */
+function openUnit(l, u, autoplay){
+  if(lv !== l || unit !== u){ lv = l; unit = u; idx = 0; load(false); }
+  store.set("core-last", l+"-"+u);
+  document.body.dataset.level = l;
+  $("unitTitle").textContent = `Lv${l} · Unit ${u}`;
+  $("home").hidden = true; $("unit").hidden = false; $("bar").hidden = false;
+  const h = `#l${l}u${u}`;
+  if(location.hash !== h) history.replaceState(null, "", h);
+  renderTracks(); renderNow();
+  if(autoplay) play();
+  window.scrollTo(0,0);
+}
+function goHome(){
+  $("unit").hidden = true; $("home").hidden = false;
+  history.replaceState(null, "", location.pathname + location.search);
+  renderHome();
+}
+$("back").addEventListener("click", goHome);
+
+function renderTracks(){
+  $("tracks").innerHTML = tracks().map((f,i) => {
+    const n = entriesFor(f).length;
+    return `<li class="${i===idx?"on":""}"><button data-i="${i}"><span class="i">${i+1}</span><span class="t">${rangeOf(f)}</span>${n?`<span class="has">${n} 個字</span>`:""}</button></li>`;
+  }).join("");
+}
+$("tracks").addEventListener("click", e => {
+  const b = e.target.closest("button[data-i]"); if(!b) return;
+  idx = +b.dataset.i; load(true);
+});
+
+function renderNow(){
+  const f = tracks()[idx];
+  $("nowLabel").textContent = `第 ${idx+1} 段 / 共 ${tracks().length} 段`;
+  $("nowRange").textContent = rangeOf(f);
+  const list = entriesFor(f);
+  $("entries").innerHTML = list.map(([w,s]) =>
+    `<div class="entry"><div class="w">${esc(w)}</div>${s?`<div class="s">${esc(s)}</div>`:""}</div>`).join("");
+  $("empty").hidden = list.length > 0;
+  $("editBtn").textContent = list.length ? "編輯這段的單字和句子" : "＋ 輸入這段的單字和句子";
+  $("editor").hidden = true; $("editBtn").hidden = false;
+}
+
+/* 編輯文字 */
+$("editBtn").addEventListener("click", () => {
+  const f = tracks()[idx];
+  $("editText").value = entriesFor(f).map(([w,s]) => s ? `${w} | ${s}` : w).join("\n");
+  $("editor").hidden = false; $("editBtn").hidden = true; $("editText").focus();
+});
+$("cancelEdit").addEventListener("click", () => { $("editor").hidden = true; $("editBtn").hidden = false; });
+$("saveEdit").addEventListener("click", () => {
+  const f = tracks()[idx];
+  const rows = $("editText").value.split("\n").map(l => l.trim()).filter(Boolean)
+    .map(l => { const p = l.split(/\s*[|｜]\s*/); return [p[0], p.slice(1).join(" | ")]; });
+  if(rows.length) userText[key(f)] = rows; else delete userText[key(f)];
+  store.set("core-text", userText);
+  renderNow(); renderTracks();
+});
+
+/* 播放 */
+function load(andPlay){
+  const f = tracks()[idx];
+  const base = LEVELS[lv].base;
+  $("err").hidden = true;
+  if(!base){
+    audio.removeAttribute("src"); audio.load();
+    $("err").textContent = `${LEVELS[lv].name} 的音檔網址還沒設定。`; $("err").hidden = false;
+  } else {
+    audio.src = base + f + ".mp3";
+    audio.playbackRate = speeds[speedI];
+  }
+  if(!$("unit").hidden){ renderNow(); renderTracks(); }
+  updateSession();
+  if(andPlay && base) play();
+}
+function play(){ if(LEVELS[lv] && LEVELS[lv].base) audio.play().catch(()=>{}); }
+function togglePlay(){ audio.paused ? play() : audio.pause(); }
+/* manual = 按「下一段」按鈕；單元最後一段再按，就跳到下一個單元第一段 */
+function next(manual){
+  if(idx < tracks().length - 1){ idx++; load(true); return; }
+  if(loopOn && !manual){ idx = 0; load(true); return; }
+  if(!manual) return;
+  const us = Object.keys(LEVELS[lv].units).sort((a,b) => a - b);
+  const i = us.indexOf(unit);
+  if(i < us.length - 1) openUnit(lv, us[i+1], true);
+  else if(LEVELS[String(+lv+1)]) openUnit(String(+lv+1), "01", true);
+}
+function prev(){
+  if(audio.currentTime > 3){ audio.currentTime = 0; return; }
+  if(idx > 0){ idx--; load(true); } else audio.currentTime = 0;
+}
+audio.addEventListener("ended", () => next(false));
+audio.addEventListener("play", setIcon); audio.addEventListener("pause", setIcon);
+audio.addEventListener("error", () => { if(!audio.getAttribute("src")) return; $("err").textContent = "這段音檔載入失敗，請檢查網路，或按下一段繼續。"; $("err").hidden = false; });
+let seeking = false;
+audio.addEventListener("timeupdate", () => {
+  $("cur").textContent = fmt(audio.currentTime);
+  $("dur").textContent = fmt(audio.duration);
+  if(!seeking && audio.duration) $("seek").value = Math.round(audio.currentTime / audio.duration * 1000);
+});
+$("seek").addEventListener("input", () => { seeking = true; });
+$("seek").addEventListener("change", () => { if(audio.duration) audio.currentTime = $("seek").value/1000*audio.duration; seeking = false; });
+
+function setIcon(){
+  $("playIcon").innerHTML = audio.paused ? '<path d="M8 5v14l11-7z"/>' : '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>';
+  $("play").setAttribute("aria-label", audio.paused ? "播放" : "暫停");
+}
+$("play").addEventListener("click", togglePlay);
+$("next").addEventListener("click", () => next(true));
+$("prev").addEventListener("click", prev);
+
+function renderSpeed(){ $("speed").textContent = speeds[speedI] + "×"; audio.playbackRate = speeds[speedI]; }
+$("speed").addEventListener("click", () => { speedI = (speedI+1) % speeds.length; store.set("core4-speed", speedI); renderSpeed(); });
+function renderLoop(){ $("loop").classList.toggle("active", loopOn); }
+$("loop").addEventListener("click", () => { loopOn = !loopOn; store.set("core4-loop", loopOn); renderLoop(); });
+
+/* 鎖定畫面控制 */
+function updateSession(){
+  if(!("mediaSession" in navigator)) return;
+  navigator.mediaSession.metadata = new MediaMetadata({ title: `Lv${lv} Unit ${unit} · ${rangeOf(tracks()[idx])}`, artist: "常春藤單字" });
+  try{
+    navigator.mediaSession.setActionHandler("play", play);
+    navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", () => next(true));
+    navigator.mediaSession.setActionHandler("previoustrack", prev);
+  }catch(e){}
+}
+
+/* 啟動 */
+renderSpeed(); renderLoop(); setIcon();
+function route(){
+  const m = location.hash.match(/^#l([45])u(\d\d)$/);
+  if(m && LEVELS[m[1]].units[m[2]]) openUnit(m[1], m[2], false);
+  else { $("unit").hidden = true; $("home").hidden = false; renderHome(); }
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
